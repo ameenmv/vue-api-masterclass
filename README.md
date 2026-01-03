@@ -1,20 +1,20 @@
 # Vue.js API Mastery
 ## The Complete Guide to Data Fetching
 
-## Table of Contents
-- Introduction
-- What You'll Learn
-- The Core Problem
-- Project Setup & Structure
-- The API Lifecycle
-- Strategy 1: The Inline Component Pattern
-- Strategy 2: The Composable Pattern (Professional)
-- Strategy 3: Advanced State (TanStack Query)
-- Global Configurations (Axios Interceptors)
-- UI/UX Handling (Loading, Error, Success)
-- Comparison Table
-- Summary & Best Practices
-- Author
+## 📑 Table of Contents
+- [Introduction](#introduction)
+- [What You'll Learn](#what-youll-learn)
+- [The Core Problem](#the-core-problem)
+- [Project Setup & Structure](#project-setup--structure)
+- [The API Lifecycle](#the-api-lifecycle)
+- [Strategy 1: The Inline Component Pattern](#strategy-1-the-inline-component-pattern)
+- [Strategy 2: The Composable Pattern (Professional)](#strategy-2-the-composable-pattern-professional)
+- [Strategy 3: Advanced State (TanStack Query)](#strategy-3-advanced-state-tanstack-query)
+- [Global Configurations (Axios Interceptors)](#global-configurations-axios-interceptors)
+- [UI/UX Handling (Loading, Error, Success)](#uiux-handling-loading-error-success)
+- [Comparison Table](#comparison-table)
+- [Summary & Best Practices](#summary--best-practices)
+- [Author](#author)
 
 ---
 
@@ -35,7 +35,7 @@ This repository acts as a technical reference for building scalable, maintainabl
 
 ---
 
-## The Core Problem
+## ⚠️ The Core Problem
 Many Vue applications start by placing API logic directly inside components.  
 While this may work initially, it introduces several technical debts:
 
@@ -88,7 +88,7 @@ Pending requests should be cancelled using `AbortController`.
 
 ---
 
-## Strategy 1: The Inline Component Pattern
+## 1️⃣ Strategy 1: The Inline Component Pattern
 The simplest approach where API logic is written directly inside the Vue component.
 
 ### Use Case
@@ -101,7 +101,7 @@ The simplest approach where API logic is written directly inside the Vue compone
 
 ---
 
-## Strategy 2: The Composable Pattern (Professional)
+## 2️⃣ Strategy 2: The Composable Pattern (Professional)
 The industry-standard approach for medium to large Vue applications.
 
 ### The Engine (`composables/useApi.js`)
@@ -153,7 +153,7 @@ execute(123);
 
 ---
 
-## Strategy 3: Advanced State (TanStack Query)
+## 3️⃣ Strategy 3: Advanced State (TanStack Query)
 Recommended for enterprise-level applications.
 
 ### Key Advantages
@@ -169,7 +169,7 @@ Recommended for enterprise-level applications.
 
 ---
 
-## Global Configurations (Axios Interceptors)
+## ⚙️ Global Configurations (Axios Interceptors)
 Interceptors allow centralized handling of cross-cutting concerns.
 
 ```js
