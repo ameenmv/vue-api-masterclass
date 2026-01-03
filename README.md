@@ -1,70 +1,59 @@
-Vue.js API Mastery
-The Complete Guide to Data Fetching
-Table of Contents
+# Vue.js API Mastery
+## The Complete Guide to Data Fetching
 
-Introduction
+## Table of Contents
+- Introduction
+- What You'll Learn
+- The Core Problem
+- Project Setup & Structure
+- The API Lifecycle
+- Strategy 1: The Inline Component Pattern
+- Strategy 2: The Composable Pattern (Professional)
+- Strategy 3: Advanced State (TanStack Query)
+- Global Configurations (Axios Interceptors)
+- UI/UX Handling (Loading, Error, Success)
+- Comparison Table
+- Summary & Best Practices
+- Author
 
-What You'll Learn
+---
 
-The Core Problem
-
-Project Setup & Structure
-
-The API Lifecycle
-
-Strategy 1: The Inline Component Pattern
-
-Strategy 2: The Composable Pattern (Professional)
-
-Strategy 3: Advanced State (TanStack Query)
-
-Global Configurations (Axios Interceptors)
-
-UI/UX Handling (Loading, Error, Success)
-
-Comparison Table
-
-Summary & Best Practices
-
-Author
-
-Introduction
-
-This project is a comprehensive guide to handling API communications in Vue 3.
+## Introduction
+This project is a comprehensive guide to handling API communications in **Vue 3**.  
 In modern frontend development, fetching data is a fundamental task, but managing it efficiently at scale is the real challenge.
 
 This repository acts as a technical reference for building scalable, maintainable, and professional API layers in Vue.js applications.
 
-What You'll Learn
+---
 
-Proper architectural structuring of an API layer in Vue.js projects
+## What You'll Learn
+- Proper architectural structuring of an API layer in Vue.js projects
+- Building reusable **Composables** to encapsulate fetching logic
+- Managing UI states (**Loading, Error, Success**) on both global and local levels
+- Advanced usage of **Axios Interceptors** for authentication and error handling
+- Integrating **TanStack Query (Vue Query)** for enterprise-grade caching and synchronization
 
-Building reusable Composables to encapsulate fetching logic
+---
 
-Managing UI states (Loading, Error, Success) on both global and local levels
-
-Advanced usage of Axios Interceptors for authentication and error handling
-
-Integrating TanStack Query (Vue Query) for enterprise-grade caching and synchronization
-
-The Core Problem
-
-Many Vue applications start by placing API logic directly inside components.
+## The Core Problem
+Many Vue applications start by placing API logic directly inside components.  
 While this may work initially, it introduces several technical debts:
 
-Code Duplication
-Repeating try/catch, loading states, and error handling across components
+### Code Duplication
+Repeating `try/catch`, loading states, and error handling across components
 
-Maintenance Complexity
+### Maintenance Complexity
 Any change to endpoints or headers requires updates in multiple files
 
-Resource Management Issues
+### Resource Management Issues
 Unhandled component unmounting can cause race conditions or memory leaks
 
-Project Setup & Structure
+---
 
-A production-ready Vue project must clearly separate the Data Layer from the Presentation Layer.
+## Project Setup & Structure
+A production-ready Vue project must clearly separate the **Data Layer** from the **Presentation Layer**.
 
+```bash
 src/
 ├── api/
 │   ├── index.js          # Axios instance, interceptors, base configuration
@@ -76,46 +65,47 @@ src/
 │   └── ErrorStates/      # Standardized error UI
 └── views/                # Page-level components
 
-The API Lifecycle
 
+```
+
+## The API Lifecycle
 Understanding the lifecycle of an API request is essential for stability and debugging.
 
-Setup
-Initialize reactive references such as data, loading, and error
+### Setup
+Initialize reactive references such as `data`, `loading`, and `error`.
 
-Trigger
-Execute requests via lifecycle hooks (onMounted) or user interactions
+### Trigger
+Execute requests via lifecycle hooks (`onMounted`) or user interactions.
 
-Processing
-Axios interceptors inject required metadata like authorization headers
+### Processing
+Axios interceptors inject required metadata like authorization headers.
 
-State Update
-The UI reacts automatically to success or failure states
+### State Update
+The UI reacts automatically to success or failure states.
 
-Clean-up
-Pending requests should be cancelled using AbortController
+### Clean-up
+Pending requests should be cancelled using `AbortController`.
 
-Strategy 1: The Inline Component Pattern
+---
 
+## Strategy 1: The Inline Component Pattern
 The simplest approach where API logic is written directly inside the Vue component.
 
-Use Case
+### Use Case
+- Small demos or proof-of-concept projects
 
-Small demos or proof-of-concept projects
+### Drawbacks
+- Strong coupling between UI and data logic  
+- No reusability  
+- Difficult to scale or maintain  
 
-Drawbacks
+---
 
-Strong coupling between UI and data logic
-
-No reusability
-
-Difficult to scale or maintain
-
-Strategy 2: The Composable Pattern (Professional)
-
+## Strategy 2: The Composable Pattern (Professional)
 The industry-standard approach for medium to large Vue applications.
 
-The Engine (composables/useApi.js)
+### The Engine (`composables/useApi.js`)
+```js
 import { ref } from 'vue';
 
 export function useApi(apiService) {
@@ -140,8 +130,10 @@ export function useApi(apiService) {
 
   return { data, loading, error, execute };
 }
+```
 
-Component Implementation
+### Component Implementation
+```vue
 <script setup>
 import { useApi } from '@/composables/useApi';
 import { getUserProfile } from '@/api/services/user';
@@ -151,43 +143,36 @@ const { data: user, loading, error, execute } = useApi(getUserProfile);
 // Trigger request
 execute(123);
 </script>
+```
 
-Why This Works
+### Why This Works
+- Clean and readable components  
+- Centralized request logic  
+- Easy to maintain and scale  
+- Encourages code reuse  
 
-Clean and readable components
+---
 
-Centralized request logic
-
-Easy to maintain and scale
-
-Encourages code reuse
-
-Strategy 3: Advanced State (TanStack Query)
-
+## Strategy 3: Advanced State (TanStack Query)
 Recommended for enterprise-level applications.
 
-Key Advantages
+### Key Advantages
+- Automatic caching  
+- Background refetching  
+- Request deduplication  
+- Window focus revalidation  
 
-Automatic caching
+### Result
+- Fewer network requests  
+- Less boilerplate  
+- Highly predictable server state management  
 
-Background refetching
+---
 
-Request deduplication
-
-Window focus revalidation
-
-Result
-
-Fewer network requests
-
-Less boilerplate
-
-Highly predictable server state management
-
-Global Configurations (Axios Interceptors)
-
+## Global Configurations (Axios Interceptors)
 Interceptors allow centralized handling of cross-cutting concerns.
 
+```js
 // src/api/index.js
 import axios from 'axios';
 
@@ -216,44 +201,49 @@ api.interceptors.response.use(
 );
 
 export default api;
+```
 
-UI/UX Handling (Loading, Error, Success)
-Loading State
+## UI/UX Handling (Loading, Error, Success)
 
+### Loading State
 Skeleton screens should be displayed while data is loading to reduce perceived latency and improve user experience.
 
-Error Feedback & Recovery
-
+### Error Feedback & Recovery
 Errors should:
+- Be clear and user-friendly  
+- Avoid blocking the UI  
+- Provide a **Retry** mechanism that re-executes the request  
 
-Be clear and user-friendly
+---
 
-Avoid blocking the UI
+## Comparison Table
 
-Provide a Retry mechanism that re-executes the request
+| Feature | Inline Call | Composables | TanStack Query |
+|------|------------|-------------|----------------|
+| Complexity | Low | Medium | High |
+| Reusability | None | High | High |
+| Caching | No | Manual | Automatic |
+| State Management | Manual | Manual | Automatic |
+| Project Scale | Small | Medium / Large | Enterprise |
 
-Comparison Table
-Feature	Inline Call	Composables	TanStack Query
-Complexity	Low	Medium	High
-Reusability	None	High	High
-Caching	No	Manual	Automatic
-State Management	Manual	Manual	Automatic
-Project Scale	Small	Medium / Large	Enterprise
-Summary & Best Practices
+---
 
-DRY Principle
-Encapsulate repeated logic into composables
+## Summary & Best Practices
 
-Single Responsibility
-Services handle data fetching, components handle presentation
+### DRY Principle
+Encapsulate repeated logic into composables.
 
-Environment Security
-Use .env files for base URLs and sensitive configurations
+### Single Responsibility
+Services handle data fetching, components handle presentation.
 
-UX First
-Always handle loading and error states properly
+### Environment Security
+Use `.env` files for base URLs and sensitive configurations.
 
-Author
+### UX First
+Always handle loading and error states properly.
 
-Ameen Mohamed
+---
+
+## Author
+**Ameen Mohamed**  
 Frontend Developer @ NEOP
