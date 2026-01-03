@@ -1,58 +1,70 @@
-# Vue.js API Mastery: The Complete Guide to Data Fetching
+Vue.js API Mastery
+The Complete Guide to Data Fetching
+Table of Contents
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [What You'll Learn](#what-youll-learn)
-3. [The Core Problem](#the-core-problem)
-4. [Project Setup & Structure](#project-setup--structure)
-5. [The API Lifecycle](#the-api-lifecycle)
-6. [Strategy 1: The Inline Component Pattern](#strategy-1-the-inline-component-pattern)
-7. [Strategy 2: The Composable Pattern (Professional)](#strategy-2-the-composable-pattern-professional)
-8. [Strategy 3: Advanced State (TanStack Query)](#strategy-3-advanced-state-tanstack-query)
-9. [Global Configurations (Axios Interceptors)](#global-configurations-axios-interceptors)
-10. [UI/UX Handling (Loading, Error, Success)](#uiux-handling-loading-error-success)
-11. [Comparison Table](#comparison-table)
-12. [Summary & Best Practices](#summary--best-practices)
-13. [Author](#author)
+Introduction
 
----
+What You'll Learn
 
-## Introduction
-This project is a comprehensive guide to handling API communications in Vue 3.  
+The Core Problem
+
+Project Setup & Structure
+
+The API Lifecycle
+
+Strategy 1: The Inline Component Pattern
+
+Strategy 2: The Composable Pattern (Professional)
+
+Strategy 3: Advanced State (TanStack Query)
+
+Global Configurations (Axios Interceptors)
+
+UI/UX Handling (Loading, Error, Success)
+
+Comparison Table
+
+Summary & Best Practices
+
+Author
+
+Introduction
+
+This project is a comprehensive guide to handling API communications in Vue 3.
 In modern frontend development, fetching data is a fundamental task, but managing it efficiently at scale is the real challenge.
 
-This repository acts as a **technical reference** for building scalable, maintainable, and professional API layers in Vue.js applications.
+This repository acts as a technical reference for building scalable, maintainable, and professional API layers in Vue.js applications.
 
----
+What You'll Learn
 
-## What You'll Learn
-- Proper architectural structuring of an API layer in Vue.js projects
-- Building reusable **Composables** to encapsulate fetching logic
-- Managing UI states (Loading, Error, Success) on both global and local levels
-- Advanced usage of **Axios Interceptors** for authentication and error handling
-- Integrating **TanStack Query (Vue Query)** for enterprise-grade caching and synchronization
+Proper architectural structuring of an API layer in Vue.js projects
 
----
+Building reusable Composables to encapsulate fetching logic
 
-## The Core Problem
-Many Vue applications start by placing API logic directly inside components.  
+Managing UI states (Loading, Error, Success) on both global and local levels
+
+Advanced usage of Axios Interceptors for authentication and error handling
+
+Integrating TanStack Query (Vue Query) for enterprise-grade caching and synchronization
+
+The Core Problem
+
+Many Vue applications start by placing API logic directly inside components.
 While this may work initially, it introduces several technical debts:
 
-- **Code Duplication**  
-  Repeating `try/catch`, loading states, and error handling across components
+Code Duplication
+Repeating try/catch, loading states, and error handling across components
 
-- **Maintenance Complexity**  
-  Any change to endpoints or headers requires updates in multiple files
+Maintenance Complexity
+Any change to endpoints or headers requires updates in multiple files
 
-- **Resource Management Issues**  
-  Unhandled component unmounting can cause race conditions or memory leaks
+Resource Management Issues
+Unhandled component unmounting can cause race conditions or memory leaks
 
----
+Project Setup & Structure
 
-## Project Setup & Structure
-A production-ready Vue project must clearly separate the **Data Layer** from the **Presentation Layer**.
+A production-ready Vue project must clearly separate the Data Layer from the Presentation Layer.
 
-```bash
 src/
 ├── api/
 │   ├── index.js          # Axios instance, interceptors, base configuration
@@ -114,6 +126,7 @@ export function useApi(apiService) {
   const execute = async (...args) => {
     loading.value = true;
     error.value = null;
+
     try {
       const response = await apiService(...args);
       data.value = response.data;
@@ -138,7 +151,6 @@ const { data: user, loading, error, execute } = useApi(getUserProfile);
 // Trigger request
 execute(123);
 </script>
-
 
 Why This Works
 
@@ -226,7 +238,7 @@ Complexity	Low	Medium	High
 Reusability	None	High	High
 Caching	No	Manual	Automatic
 State Management	Manual	Manual	Automatic
-Project Scale	Small	Medium/Large	Enterprise
+Project Scale	Small	Medium / Large	Enterprise
 Summary & Best Practices
 
 DRY Principle
